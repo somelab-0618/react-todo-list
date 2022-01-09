@@ -1,9 +1,9 @@
 import React from 'react';
 import { Todo } from '../common/interfaces';
 
-interface Props {
+type Props = {
   todos: Todo[];
-}
+};
 
 export const TodoListTable = (props: Props) => {
   const { todos } = props;
