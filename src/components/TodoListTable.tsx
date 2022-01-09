@@ -22,7 +22,7 @@ export const TodoListTable = (props: Props) => {
             return (
               <tr key={todo.id}>
                 <td>{todo.id}</td>
-                <td>{todo.content}</td>
+                <td>{todo.comment}</td>
                 <td>
                   {todo.isDone ? <button>完了</button> : <button>作業中</button>}
                 </td>

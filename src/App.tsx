@@ -13,7 +13,7 @@ const App: React.FC = () => {
     if (todoText === '') return;
     const newTodo: Todo = {
       id: todos.length + 1,
-      content: todoText,
+      comment: todoText,
       isDone: false,
     };
 
