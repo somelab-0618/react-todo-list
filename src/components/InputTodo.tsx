@@ -8,6 +8,7 @@ type Props = {
 
 export const InputTodo: React.FC<Props> = (props: Props) => {
   const { inputText, changeInputText, addTodo } = props;
+
   return (
     <>
       <input
