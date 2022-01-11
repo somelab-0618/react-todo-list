@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { InputTodo } from './components/InputTodo';
 import { TodoListTable } from './components/TodoListTable';
-import { Todo, TodoText } from './common/type';
+import { Todo, TodoText } from './types/todo';
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -20,6 +20,12 @@ const App: React.FC = () => {
     setTodoText('');
   };
 
+  const deleteTodo: (index: number) => void = (index) => {
+    const newTodoList = [...todos];
+    newTodoList.splice(index, 1);
+    setTodos(newTodoList);
+  };
+
   const changeInputText: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
     setTodoText(e.target.value);
   };
@@ -35,7 +41,7 @@ const App: React.FC = () => {
         <input type='radio' />
         完了
       </div>
-      <TodoListTable todos={todos} />
+      <TodoListTable todos={todos} deleteTodo={deleteTodo} />
       <h2>新規タスクの追加</h2>
       <InputTodo
         inputText={todoText}

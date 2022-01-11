@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { VFC } from 'react';
 
 type Props = {
   inputText: string;
@@ -6,7 +6,7 @@ type Props = {
   addTodo: () => void;
 };
 
-export const InputTodo: React.FC<Props> = (props: Props) => {
+export const InputTodo: VFC<Props> = (props) => {
   const { inputText, changeInputText, addTodo } = props;
 
   return (
