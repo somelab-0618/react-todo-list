@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { InputTodo } from './components/InputTodo';
+import { TodoListTable } from './components/TodoListTable';
+import { Todo, TodoText } from './common/type';
 
-function App() {
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todoText, setTodoText] = useState<TodoText>('');
+
+  const addTodo: () => void = () => {
+    if (!todoText) return;
+    const newTodo: Todo = {
+      id: todos.length + 1,
+      comment: todoText,
+      isDone: false,
+    };
+
+    const newTodoList: Todo[] = [...todos, newTodo];
+    setTodos(newTodoList);
+    setTodoText('');
+  };
+
+  const changeInputText: (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
+    setTodoText(e.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Todo List</h1>
+      <div className='task-state'>
+        <input type='radio' />
+        すべて
+        <input type='radio' />
+        作業中
+        <input type='radio' />
+        完了
+      </div>
+      <TodoListTable todos={todos} />
+      <h2>新規タスクの追加</h2>
+      <InputTodo
+        inputText={todoText}
+        changeInputText={changeInputText}
+        addTodo={addTodo}
+      />
     </div>
   );
-}
+};
 
 export default App;
