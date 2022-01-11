@@ -10,7 +10,6 @@ const App: React.FC = () => {
   const addTodo: () => void = () => {
     if (!todoText) return;
     const newTodo: Todo = {
-      id: todos.length + 1,
       comment: todoText,
       isDone: false,
     };
