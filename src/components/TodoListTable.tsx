@@ -1,12 +1,14 @@
-import React from 'react';
-import { Todo } from '../common/type';
+import React, { VFC } from 'react';
+import { Todo } from '../types/todo';
 
 type Props = {
   todos: Todo[];
+  deleteTodo: (index: number) => void;
 };
 
-export const TodoListTable = (props: Props) => {
-  const { todos } = props;
+export const TodoListTable: VFC<Props> = (props) => {
+  const { todos, deleteTodo } = props;
+
   return (
     <>
       <table className='task-list'>
@@ -20,14 +22,14 @@ export const TodoListTable = (props: Props) => {
         <tbody>
           {todos.map((todo: Todo, index: number) => {
             return (
-              <tr key={todo.id}>
-                <td>{todo.id}</td>
+              <tr key={index}>
+                <td>{index}</td>
                 <td>{todo.comment}</td>
                 <td>
                   {todo.isDone ? <button>完了</button> : <button>作業中</button>}
                 </td>
                 <td>
-                  <button>削除</button>
+                  <button onClick={() => deleteTodo(index)}>削除</button>
                 </td>
               </tr>
             );
