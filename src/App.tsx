@@ -14,7 +14,7 @@ const App: React.FC = () => {
       isDone: false,
     };
 
-    const newTodoList: Todo[] = [...todos, newTodo];
+    const newTodoList = [...todos, newTodo];
     setTodos(newTodoList);
     setTodoText('');
   };
@@ -22,6 +22,17 @@ const App: React.FC = () => {
   const deleteTodo: (index: number) => void = (index) => {
     const newTodoList = [...todos];
     newTodoList.splice(index, 1);
+    setTodos(newTodoList);
+  };
+
+  const changeTodoState: (index: number) => void = (index) => {
+    const newTodoList = [...todos];
+    const newTodo = {
+      comment: newTodoList[index].comment,
+      isDone: !newTodoList[index].isDone,
+    };
+    newTodoList[index] = newTodo;
+    console.log(newTodoList);
     setTodos(newTodoList);
   };
 
@@ -40,7 +51,11 @@ const App: React.FC = () => {
         <input type='radio' />
         完了
       </div>
-      <TodoListTable todos={todos} deleteTodo={deleteTodo} />
+      <TodoListTable
+        todos={todos}
+        deleteTodo={deleteTodo}
+        changeTodoState={changeTodoState}
+      />
       <h2>新規タスクの追加</h2>
       <InputTodo
         inputText={todoText}

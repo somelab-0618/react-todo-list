@@ -4,10 +4,11 @@ import { Todo } from '../types/todo';
 type Props = {
   todos: Todo[];
   deleteTodo: (index: number) => void;
+  changeTodoState: (index: number) => void;
 };
 
 export const TodoListTable: VFC<Props> = (props) => {
-  const { todos, deleteTodo } = props;
+  const { todos, deleteTodo, changeTodoState } = props;
 
   return (
     <>
@@ -26,7 +27,11 @@ export const TodoListTable: VFC<Props> = (props) => {
                 <td>{index}</td>
                 <td>{todo.comment}</td>
                 <td>
-                  {todo.isDone ? <button>完了</button> : <button>作業中</button>}
+                  {todo.isDone ? (
+                    <button onClick={() => changeTodoState(index)}>完了</button>
+                  ) : (
+                    <button onClick={() => changeTodoState(index)}>作業中</button>
+                  )}
                 </td>
                 <td>
                   <button onClick={() => deleteTodo(index)}>削除</button>
