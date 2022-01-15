@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { InputTodo } from './components/InputTodo';
+import { RadioInputTodoState } from './components/RadioInputTodoState';
 import { TodoListTable } from './components/TodoListTable';
-import { Todo, TodoText, TodoState } from './types/todo';
+import { Todo, TodoText, TodoState, TodoStateJp } from './types/todo';
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([{ comment: 'todo1', state: 'wip' }]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [todoText, setTodoText] = useState<TodoText>('');
   const [showTodoState, setShowTodoState] = useState<TodoState>('all');
+  const stateList: TodoStateJp = {
+    all: 'すべて',
+    wip: '作業中',
+    done: '完了',
+  };
 
   const addTodo: () => void = () => {
     if (!todoText) return;
@@ -37,31 +43,10 @@ const App: React.FC = () => {
     };
 
     newTodoList[index] = newTodo;
-    console.log(newTodoList);
     setTodos(newTodoList);
   };
 
   const changeShowTodo: (showTodoState: TodoState) => void = (showTodoState) => {
-    const todoList = [...todos];
-    let newTodoList: Todo[];
-    // if (showTodoState) {
-    //   newTodoList = todoList.map((todo) => {
-    //     todo.isDone ? (todo.isShow = false) : (todo.isShow = true);
-    //     return todo;
-    //   });
-    // } else if (!showTodoState) {
-    //   newTodoList = todoList.map((todo) => {
-    //     todo.isDone ? (todo.isShow = true) : (todo.isShow = false);
-    //     return todo;
-    //   });
-    // } else {
-    //   newTodoList = todoList.map((todo) => {
-    //     todo.isShow = true;
-    //     return todo;
-    //   });
-    // }
-    console.log({ showTodoState });
-    // setTodos(newTodoList);
     setShowTodoState(showTodoState);
   };
 
@@ -73,24 +58,16 @@ const App: React.FC = () => {
     <div className='App'>
       <h1>Todo List</h1>
       <div className='task-state'>
-        <input
-          type='radio'
-          onChange={() => changeShowTodo('all')}
-          checked={showTodoState === 'all'}
-        />
-        すべて
-        <input
-          type='radio'
-          onChange={() => changeShowTodo('wip')}
-          checked={showTodoState === 'wip'}
-        />
-        作業中
-        <input
-          type='radio'
-          onChange={() => changeShowTodo('done')}
-          checked={showTodoState === 'done'}
-        />
-        完了
+        {(Object.keys(stateList) as (keyof TodoStateJp)[]).map((key) => (
+          <RadioInputTodoState
+            key={key}
+            changeShowTodo={changeShowTodo}
+            showTodoState={showTodoState}
+            stateKey={key}
+          >
+            {stateList[key]}
+          </RadioInputTodoState>
+        ))}
       </div>
       <TodoListTable
         todos={todos}
