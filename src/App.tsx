@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { InputTodo } from './components/InputTodo';
 import { TodoListTable } from './components/TodoListTable';
-import { Todo, TodoText } from './types/todo';
+import { Todo, TodoText, TodoState } from './types/todo';
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [todoText, setTodoText] = useState<TodoText>('');
+  const [TodoState, setTodoState] = useState<TodoState>('all');
 
   const addTodo: () => void = () => {
     if (!todoText) return;

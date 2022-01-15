@@ -4,3 +4,5 @@ export type Todo = {
 };
 
 export type TodoText = string;
+
+export type TodoState = 'all' | 'wip' | 'done';
