@@ -1,8 +1,8 @@
+export type TodoState = 'all' | 'wip' | 'done';
+
 export type Todo = {
   comment: string;
-  isDone: boolean;
+  state: TodoState;
 };
 
 export type TodoText = string;
-
-export type TodoState = 'all' | 'wip' | 'done';
